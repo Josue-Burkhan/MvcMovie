@@ -364,3 +364,4 @@
 /Users/josue.burkhan/BYUI/ASP.net-learn-activities/MvcMovie/bin/Debug/net10.0/runtimes/win-x86/native/e_sqlite3.dll
 /Users/josue.burkhan/BYUI/ASP.net-learn-activities/MvcMovie/obj/Debug/net10.0/MvcMovie.csproj.AssemblyReference.cache
 /Users/josue.burkhan/BYUI/ASP.net-learn-activities/MvcMovie/obj/Debug/net10.0/MvcMovie.csproj.Up2Date
+/Users/josue.burkhan/BYUI/ASP.net-learn-activities/MvcMovie/obj/Debug/net10.0/MvcMovie.sourcelink.json
