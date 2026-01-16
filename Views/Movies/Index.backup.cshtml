@@ -1,0 +1,327 @@
+@model MvcMovie.Models.MovieGenreViewModel
+
+@{
+    ViewData["Title"] = "My Movies";
+}
+
+<div class="movies-page">
+    <div class="page-header">
+        <h1>🎬 My Movies</h1>
+        <p class="page-description">Gestiona tu colección de películas</p>
+        <a asp-action="Create" class="btn-create">
+            <span>+</span> Agregar Película
+        </a>
+    </div>
+
+    <div class="filter-section">
+        <form asp-controller="Movies" asp-action="Index" method="get" class="filter-form">
+            <div class="filter-group">
+                <label for="MovieGenre">
+                    <span class="label-icon">🎭</span> Género
+                </label>
+                <select asp-for="MovieGenre" asp-items="Model.Genres">
+                    <option value="">Todos los géneros</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label>
+                    <span class="label-icon">🔍</span> Título
+                </label>
+                <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" placeholder="Buscar película..." />
+            </div>
+
+            <div class="filter-group">
+                <label>
+                    <span class="label-icon">📅</span> Desde
+                </label>
+                <input type="date" name="startDate" />
+            </div>
+
+            <div class="filter-group">
+                <label>
+                    <span class="label-icon">📅</span> Hasta
+                </label>
+                <input type="date" name="endDate" />
+            </div>
+
+            <div class="filter-group">
+                <label>
+                    <span class="label-icon">↕️</span> Orden
+                </label>
+                <select name="sortOrder">
+                    <option value="">Sin orden</option>
+                    <option value="date_asc">Fecha ↑</option>
+                    <option value="date_desc">Fecha ↓</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-filter">
+                🔍 Filtrar
+            </button>
+        </form>
+    </div>
+
+    <div class="movies-table-container">
+        <table class="movies-table">
+            <thead>
+                <tr>
+                    <th>🎬 Título</th>
+                    <th>📅 Fecha</th>
+                    <th>🎭 Género</th>
+                    <th>💰 Precio</th>
+                    <th>⭐ Rating</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Movies!)
+                {
+                    <tr>
+                        <td class="movie-title">@Html.DisplayFor(modelItem => item.Title)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ReleaseDate)</td>
+                        <td><span class="genre-badge">@Html.DisplayFor(modelItem => item.Genre)</span></td>
+                        <td class="price">$@Html.DisplayFor(modelItem => item.Price)</td>
+                        <td class="rating">@Html.DisplayFor(modelItem => item.Rating)</td>
+                        <td class="actions">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn-action edit" title="Editar">✏️</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn-action details" title="Detalles">👁️</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn-action delete" title="Eliminar">🗑️</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .movies-page {
+        animation: fadeInUp 0.5s ease-out;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .page-description {
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-create {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.75rem;
+        background: var(--primary-gradient);
+        color: white !important;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-create:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 35px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-create span {
+        font-size: 1.25rem;
+    }
+
+    /* Filter Section */
+    .filter-section {
+        margin-bottom: 2rem;
+    }
+
+    .filter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: flex-end;
+        padding: 1.5rem;
+        background: var(--card-bg);
+        border-radius: var(--border-radius-lg);
+        border: 1px solid var(--card-border);
+    }
+
+    .filter-group {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .filter-group label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .label-icon {
+        font-size: 1rem;
+    }
+
+    .btn-filter {
+        padding: 0.75rem 1.5rem;
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 120px;
+    }
+
+    .btn-filter:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-glow);
+    }
+
+    /* Movies Table */
+    .movies-table-container {
+        overflow-x: auto;
+        border-radius: var(--border-radius-lg);
+    }
+
+    .movies-table {
+        width: 100%;
+        background: var(--card-bg);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid var(--card-border);
+    }
+
+    .movies-table thead {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    }
+
+    .movies-table th {
+        padding: 1rem 1.25rem;
+        text-align: left;
+        font-weight: 600;
+        color: var(--text-primary);
+        font-size: 0.9rem;
+        border-bottom: 1px solid var(--card-border);
+    }
+
+    .movies-table td {
+        padding: 1rem 1.25rem;
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--card-border);
+        transition: all 0.2s ease;
+    }
+
+    .movies-table tbody tr {
+        transition: all 0.2s ease;
+    }
+
+    .movies-table tbody tr:hover {
+        background: rgba(102, 126, 234, 0.1);
+    }
+
+    .movies-table tbody tr:hover td {
+        color: var(--text-primary);
+    }
+
+    .movies-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    .movie-title {
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .genre-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: var(--glass-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 50px;
+        font-size: 0.85rem;
+    }
+
+    .price {
+        font-weight: 600;
+        color: var(--success-color);
+    }
+
+    .rating {
+        font-weight: 600;
+        color: var(--warning-color);
+    }
+
+    /* Action Buttons */
+    .actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.2s ease;
+        text-decoration: none;
+    }
+
+    .btn-action.edit {
+        background: rgba(102, 126, 234, 0.2);
+    }
+
+    .btn-action.edit:hover {
+        background: var(--accent-color);
+        transform: scale(1.1);
+    }
+
+    .btn-action.details {
+        background: rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-action.details:hover {
+        background: var(--success-color);
+        transform: scale(1.1);
+    }
+
+    .btn-action.delete {
+        background: rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-action.delete:hover {
+        background: var(--danger-color);
+        transform: scale(1.1);
+    }
+
+    @@media (max-width: 768px) {
+        .filter-form {
+            flex-direction: column;
+        }
+        
+        .filter-group {
+            min-width: 100%;
+        }
+        
+        .movies-table th, .movies-table td {
+            padding: 0.75rem;
+            font-size: 0.875rem;
+        }
+    }
+</style>

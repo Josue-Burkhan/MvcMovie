@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="hero-section text-center">
+    <div class="hero-content">
+        <h1 class="display-4">🎬 Movie App</h1>
+        <p class="hero-subtitle">by Josue A. Bailon</p>
+        <p class="hero-description">
+            Tu plataforma premium para gestionar tu colección de películas. 
+            Explora, organiza y descubre nuevas películas con estilo.
+        </p>
+        <div class="hero-buttons">
+            <a asp-controller="Movies" asp-action="Index" class="btn-hero primary">
+                <span>🎥</span> Ver Películas
+            </a>
+            <a href="https://learn.microsoft.com/aspnet/core" class="btn-hero secondary" target="_blank">
+                <span>📚</span> Aprender ASP.NET
+            </a>
+        </div>
+    </div>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🎬</div>
+            <h3>Gestiona Películas</h3>
+            <p>Agrega, edita y elimina películas de tu colección personal.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Búsqueda Avanzada</h3>
+            <p>Filtra por género, fecha y más para encontrar lo que buscas.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">⭐</div>
+            <h3>Calificaciones</h3>
+            <p>Califica tus películas y mantén un registro de tus favoritas.</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hero-section {
+        padding: 3rem 0;
+    }
+    
+    .hero-content {
+        max-width: 700px;
+        margin: 0 auto 4rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        margin-top: -1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .btn-hero {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-hero.primary {
+        background: var(--primary-gradient);
+        color: white !important;
+        box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-hero.primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.5);
+    }
+    
+    .btn-hero.secondary {
+        background: var(--glass-bg);
+        color: var(--text-primary) !important;
+        border: 1px solid var(--card-border);
+    }
+    
+    .btn-hero.secondary:hover {
+        background: var(--card-bg);
+        border-color: var(--accent-color);
+        transform: translateY(-3px);
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .feature-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--border-radius-lg);
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent-color);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .feature-card p {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        margin: 0;
+    }
+</style>
