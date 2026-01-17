@@ -51,6 +51,30 @@ public static class SeedData
                     Genre = "Western",
                     Rating = "R",
                     Price = 3.99M
+                },
+                new Movie
+                {
+                    Title = "The Shining",
+                    ReleaseDate = DateTime.Parse("1980-3-23"),
+                    Genre = "Psychological",
+                    Rating = "R",
+                    Price = 12.99M
+                },
+                new Movie
+                {
+                    Title = "Harry Potter and the Goblet of Fire",
+                    ReleaseDate = DateTime.Parse("2005-11-18"),
+                    Genre = "Fantasy",
+                    Rating = "R",
+                    Price = 14.99M
+                },
+                new Movie
+                {
+                    Title = "Oppenheimer",
+                    ReleaseDate = DateTime.Parse("2023-7-21"),
+                    Genre = "Biography",
+                    Rating = "R",
+                    Price = 16.99M
                 }
             );
             context.SaveChanges();
